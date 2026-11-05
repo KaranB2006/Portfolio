@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Karan Badela — Software Developer portfolio. Laravel, Flutter, JavaScript and full-stack projects.">
+  <title>Karan Badela | Software Developer</title>
+  <style>
+    :root {
+      --bg: #090d19;
+      --panel: #11182a;
+      --panel-2: #151e33;
+      --text: #f3f6ff;
+      --muted: #a5afc4;
+      --line: rgba(255,255,255,.10);
+      --accent: #8b7cff;
+      --accent-2: #42d6c5;
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px);
+      background: rgba(9,13,25,.82); border-bottom: 1px solid var(--line);
+    }
+    nav { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { font-weight: 800; letter-spacing: -.5px; font-size: 1.08rem; }
+    .brand span { color: var(--accent-2); }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: .9rem; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+    .menu-btn { display: none; border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 10px; padding: 8px 12px; }
+    .hero { position: relative; overflow: hidden; padding: 82px 0 76px; }
+    .hero::before {
+      content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+      background: rgba(139,124,255,.16); filter: blur(95px); top: -190px; right: -100px; pointer-events: none;
+    }
+    .hero-grid { position: relative; display: grid; grid-template-columns: 1.35fr .65fr; gap: 54px; align-items: center; }
+    .eyebrow { color: var(--accent-2); text-transform: uppercase; letter-spacing: 2px; font-size: .75rem; font-weight: 800; }
+    h1 { font-size: clamp(2.65rem, 7vw, 5rem); line-height: 1.04; letter-spacing: -3px; margin: 15px 0 18px; }
+    h1 .gradient { background: linear-gradient(100deg, #a99fff, #5ce0d0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { color: var(--muted); max-width: 610px; font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 17px; border-radius: 11px; font-weight: 750; font-size: .92rem; border: 1px solid var(--line); transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #090d19; background: linear-gradient(110deg, #a99fff, #63dfd0); border: 0; }
+    .btn-secondary { background: rgba(255,255,255,.04); }
+    .photo-frame { width: min(100%, 290px); aspect-ratio: 1; margin: 0 auto; padding: 8px; border-radius: 28px; background: linear-gradient(145deg, var(--accent), var(--accent-2)); box-shadow: 0 24px 80px rgba(0,0,0,.35); transform: rotate(2deg); }
+    .photo-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; border-radius: 21px; background: var(--panel); }
+    section { padding: 62px 0; }
+    .section-head { margin-bottom: 26px; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -1px; margin: 5px 0; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .about-card, .card, .timeline-card { background: linear-gradient(145deg, rgba(21,30,51,.95), rgba(15,22,39,.95)); border: 1px solid var(--line); border-radius: 18px; }
+    .about-card { padding: 25px; color: var(--muted); }
+    .about-card strong { color: var(--text); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+    .stat { padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.025); }
+    .stat strong { display: block; font-size: 1.35rem; color: var(--text); }
+    .stat span { color: var(--muted); font-size: .82rem; }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { padding: 8px 13px; border-radius: 999px; color: #d9def0; border: 1px solid rgba(139,124,255,.25); background: rgba(139,124,255,.08); font-size: .88rem; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .card { padding: 22px; display: flex; flex-direction: column; min-height: 240px; transition: transform .2s, border-color .2s; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(139,124,255,.55); }
+    .project-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .project-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: rgba(66,214,197,.10); color: var(--accent-2); font-size: 1.25rem; }
+    .project-type { color: var(--muted); font-size: .75rem; }
+    .card h3 { margin: 0 0 8px; font-size: 1.13rem; }
+    .card p { color: var(--muted); font-size: .91rem; margin: 0 0 18px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+    .tags span { color: #c4cbe0; font-size: .73rem; background: rgba(255,255,255,.06); padding: 4px 8px; border-radius: 6px; }
+    .timeline { position: relative; padding-left: 22px; border-left: 1px solid rgba(139,124,255,.5); }
+    .timeline-card { padding: 22px; position: relative; }
+    .timeline-card::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-2); left: -28px; top: 27px; box-shadow: 0 0 0 5px var(--bg); }
+    .timeline-card h3 { margin: 0; }
+    .timeline-meta { color: var(--accent-2); font-size: .85rem; font-weight: 700; }
+    .timeline-card p { color: var(--muted); margin-bottom: 0; }
+    .contact-card { padding: 28px; border-radius: 20px; border: 1px solid var(--line); background: radial-gradient(circle at 100% 0%, rgba(139,124,255,.18), transparent 45%), var(--panel); }
+    .contact-card p { color: var(--muted); max-width: 600px; }
+    .contact-note { font-size: .84rem; color: var(--muted); margin-top: 18px; }
+    footer { border-top: 1px solid var(--line); padding: 22px 0; color: var(--muted); font-size: .83rem; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      .hero { padding: 56px 0 45px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 34px; text-align: center; }
+      .hero-copy { margin: 0 auto; font-size: .98rem; }
+      .hero-actions { justify-content: center; }
+      .photo-frame { width: 205px; grid-row: 1; }
+      h1 { letter-spacing: -2px; }
+      section { padding: 46px 0; }
+      .project-grid { grid-template-columns: 1fr; }
+      .stats { gap: 8px; }
+      .stat { padding: 12px 9px; }
+      .stat strong { font-size: 1.1rem; }
+      .stat span { font-size: .72rem; }
+      .menu-btn { display: inline-flex; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 18px 20px 22px; background: #0d1323; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; gap: 15px; }
+      .nav-links.open { display: flex; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home">Karan<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <header class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Software Developer · Mumbai, India</div>
+          <h1>Hi, I'm Karan<br><span class="gradient">Badela.</span></h1>
+          <p class="hero-copy">I build practical web and mobile applications, work with APIs and databases, and enjoy solving real-world problems through clean, reliable software.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Explore my work ↗</a>
+            <a class="btn btn-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="photo-frame">
+          <!-- Keep your photo named exactly: 36865.jpg, in the same folder as index.html -->
+          <img src="36865.jpg" alt="Portrait of Karan Badela" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(145deg,#a99fff,#63dfd0)';">
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-head"><div class="eyebrow">A little about me</div><h2>Building useful digital experiences.</h2></div>
+        <div class="about-card">
+          I'm a <strong>B.Sc. Information Technology graduate</strong> based in the Mumbai region, currently working as a PHP Laravel Developer. My experience includes backend development, REST API development, MySQL, Linux VPS management and building responsive interfaces. I like taking a problem from idea to a working solution, with a focus on reliability and usability.
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>B.Sc. IT</strong><span>Education</span></div>
+          <div class="stat"><strong>Laravel</strong><span>Backend focus</span></div>
+          <div class="stat"><strong>Full-stack</strong><span>Project experience</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container reveal">
+        <div class="section-head"><div class="eyebrow">My toolkit</div><h2>Skills & technologies</h2><p>Tools and technologies I've worked with across development projects.</p></div>
+        <div class="skills">
+          <span class="chip">PHP</span><span class="chip">Laravel</span><span class="chip">Flutter</span><span class="chip">Dart</span>
+          <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">REST APIs</span><span class="chip">JavaScript</span>
+          <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">React</span><span class="chip">Java</span>
+          <span class="chip">Django</span><span class="chip">Linux VPS</span><span class="chip">Nginx</span><span class="chip">Apache</span>
+          <span class="chip">Git</span><span class="chip">Google Drive API</span><span class="chip">RAG</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container reveal">
+        <div class="section-head"><div class="eyebrow">Selected work</div><h2>Projects I've worked on</h2><p>A selection of development work across backend, web and mobile applications.</p></div>
+        <div class="project-grid">
+          <article class="card">
+            <div class="project-top"><div class="project-icon">⌁</div><span class="project-type">Backend · Automation</span></div>
+            <h3>Automated VPS Database Backup</h3>
+            <p>Built an automated MySQL backup workflow from a Linux VPS to Google Drive. Scheduled backups, queue retries and failure notifications help make database recovery more dependable.</p>
+            <div class="tags"><span>Laravel</span><span>MySQL</span><span>Linux VPS</span><span>Cron</span><span>Queues</span></div>
+          </article>
+          <article class="card">
+            <div class="project-top"><div class="project-icon">▣</div><span class="project-type">Mobile · AI</span></div>
+            <h3>Corporate Employee LMS</h3>
+            <p>A learning management portal designed for corporate employees, with learning resources and a RAG-based experience to help users find relevant information.</p>
+            <div class="tags"><span>Flutter</span><span>Dart</span><span>RAG</span><span>API integration</span></div>
+          </article>
+          <article class="card">
+            <div class="project-top"><div class="project-icon">🛍</div><span class="project-type">E-commerce · Team project</span></div>
+            <h3>Shankar Footwear</h3>
+            <p>An e-commerce website with a React frontend and Java Servlet/JSP backend, connected to a relational database and integrated with a Cashfree test checkout flow.</p>
+            <div class="tags"><span>React</span><span>Java</span><span>JSP / Servlets</span><span>PostgreSQL</span><span>Cashfree</span></div>
+          </article>
+          <article class="card">
+            <div class="project-top"><div class="project-icon">✦</div><span class="project-type">Web · Final-year project</span></div>
+            <h3>The Khaya</h3>
+            <p>A food ordering platform with menu browsing, cart and order flows, plus 3D augmented-reality food previews for a more interactive experience.</p>
+            <div class="tags"><span>Django</span><span>Python</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>AR</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container reveal">
+        <div class="section-head"><div class="eyebrow">Where I've worked</div><h2>Experience</h2></div>
+        <div class="timeline">
+          <div class="timeline-card">
+            <div class="timeline-meta">January 2026 – Present · Mumbai, India</div>
+            <h3>PHP Laravel Developer</h3>
+            <strong>OELS LLP</strong>
+            <p>Working on Laravel-based application development, backend functionality, MySQL database operations, API development and Linux VPS/server management.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <div class="contact-card">
+          <div class="eyebrow">Let's connect</div>
+          <h2>Have a project or opportunity?</h2>
+          <p>I'm open to connecting with teams working on web applications, backend systems and mobile products. Feel free to reach out.</p>
+          <a class="btn btn-primary" href="mailto:">Email me ↗</a>
+          <p class="contact-note">Before publishing, replace the empty email link with your email address and add your LinkedIn, GitHub and resume links if you'd like them displayed here.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="year"></span> Karan Badela. Built with HTML, CSS & JavaScript.</div></footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
